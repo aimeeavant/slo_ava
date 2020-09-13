@@ -1,0 +1,33 @@
+body {
+    margin: 15px;
+}
+
+#heading {
+    height:10vh;
+    background-color: #f7f5ed;
+}
+#map {
+    height:80vh;
+}
+#side-bar {
+    height:80vh;
+    background-color: white;
+}
+#footer {
+    height:10vh;
+    background-color: #f7f5ed;
+}
+
+/* Cursors */
+.leaflet-clickable {
+  cursor: crosshair !important;
+}
+
+/* only on that works */
+.leaflet-container {
+  cursor: crosshair !important;
+}
+
+.leaflet-dragging .leaflet-grab{
+	cursor: move;
+}

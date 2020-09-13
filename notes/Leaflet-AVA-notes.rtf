@@ -1,0 +1,34 @@
+Had a hard time getting Bootstrap to work
+    used a custom download of bootstrap that just includes the scafolding
+        https://getbootstrap.com/docs/3.4/customize/ 
+        this seemed to include a lot of other things
+    tried just coding, but too complex
+    tried to include via https://www.bootstrapcdn.com/
+        tried full and it did not work, put in head and before body close
+        put just the css in the head and it worked
+Map height was tricky, using a percentage did not work
+    used vh as in height:80vh;
+    here is the link to css measurement units
+    https://www.w3schools.com/cssref/css_units.asp
+Got error about $ not being defined in my other js files
+    searched all about multiple js files and dependencies
+    then realized I called my custom js files before the jQuery
+Sidebar and map js files were not working
+    finally figured out it is was because they were called before the map was created
+    also had to update the code using find/replace for the id of the map div
+Tiles were not loading from mapbox
+    Figured out had to go to share/use and pick use, then third party and pick carto to get the xyz url that leaflet wants
+Trying to figure out how to store and load json data. Should each thing be a separate file? You can create a variable with the json data and add it to the map using L.geoJSON(yorkGeoJSON).addTo(map); but this only works if the json data is pasted into the file. To get the json file as a standalone? What if I use jquery? $.getJSON(guinea, handleGeoJSON)like here https://gist.github.com/blahah/167a363844326c2192d7ab0ff32ad8d0  but got CORS error. Decided to just build js files for each. But now can't find where you set the properties like the blue line.
+    
+    
+Data Tools: Data tools are available: geojsonlint, geojson.io, Mapster Right Hand Rule tool, mapshaper, conversion tools from CSV/Excel to geoJSON and more 
+    
+    
+    Notes for Mapbox
+    https://docs.mapbox.com/help/troubleshooting/transition-from-mapbox-js-to-mapbox-gl-js/
+    
+    
+    Notes for data
+    https://catalog.data.gov/dataset
+    
+    

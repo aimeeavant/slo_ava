@@ -1,0 +1,29 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Winery or Grower": " ",
+        "Historical Significance": "",
+        "Established": " ",
+        "Closed": "",
+        "Owner": "",
+        "Winemaker": "",
+        "Grape Varieties": "",
+        "Signature Wine Varietals & Wines": "",
+        "Website": "",
+        "More Information": ""
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+         -120.82869887351988,
+          35.54034565266887
+        ]
+      }
+    }
+  ]
+}
+
+       

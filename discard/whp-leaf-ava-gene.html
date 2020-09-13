@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Central Coast AVAs</title>
+        
+        <!-- Meta  -->
+        <meta name="description" content="An interactive guide to Central Coast AVAs">
+        
+        <!-- Layout Framework  -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        
+        
+        <!-- Custom Styles  -->
+        <link rel="stylesheet" href="css/layout.css">
+
+
+    </head>
+    
+    <body>
+        <div class="row">
+            <div id="heading" class="col-md-12"><p>Header</p></div>
+        </div>
+
+        <div class="row">
+        <div id="sidebar" class="col-md-3">
+           <h3>Go to Location:</h3>
+            <button id='btnLocate' class='btn btn-primary btn-block'>Your Location</button>
+            <button id='btnSLO' class='btn btn-primary btn-block'>San Luis Obispo</button>
+            <button id='btnYork' class='btn btn-primary btn-block'>York Mountain AVA</button>
+            <button id='btnGeneseo' class='btn btn-primary btn-block'>Geneseo AVA</button>
+            <div id="info"></div>
+        </div>
+            <div id="map" class="col-md-9"></div>
+        </div>
+        <div class="row">
+            <div id="footer" class="col-md-12">Footer</div>
+        </div>
+        
+        
+        <!-- Event Handler Framework  -->
+         <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+       
+       
+        <!-- Mapbox  --> 
+
+        <!-- Leaflet CSS -->   
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css"
+integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+crossorigin=""/>
+         <!-- Leaflet JS  --- Make sure you put this AFTER Leaflet's CSS -->
+         <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg=="
+crossorigin=""></script>            
+
+<script>
+    
+    var mrkCurrentLocation;
+    var map;
+    var geoJson;
+           
+    // Map Constructor
+        map = L.map('map', {
+            center: [35.552898586492105, -120.82660675048827],
+            zoom: 13,
+            attributionControl: true
+        });
+
+    
+// Mapbox custom tile layer
+    var token ='pk.eyJ1IjoiYWltZWVhdmFudCIsImEiOiJjajg5aTg0dmEwM3NxMzNxbmJrMDBsZGxuIn0.HhCT03w1Tdtl1PZWLyvS4g';
+    
+    var mapToken = 'pk.eyJ1IjoiYWltZWVhdmFudCIsImEiOiJjajd2ZWp3NjQwNGx4MndudjVqbGd1ZG1xIn0.5j60jT7XVIkSKpw7Y9aJXA';
+    
+    var styleURL = 'mapbox://styles/aimeeavant/cjurqkcb817u61fpl4hvm7g8q';
+    
+    var xyzURL = 'https://api.mapbox.com/styles/v1/aimeeavant/cjurqkcb817u61fpl4hvm7g8q/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWltZWVhdmFudCIsImEiOiJjajd2ZWp3NjQwNGx4MndudjVqbGd1ZG1xIn0.5j60jT7XVIkSKpw7Y9aJXA';
+     
+    L.tileLayer(
+    xyzURL, {
+        //no options
+    }).addTo(map);
+
+// testing stuff
+    map.on('click', function(e){
+        console.log(e);
+    })
+
+
+    
+    </script>
+    
+       
+<!--
+        Must be in this order
+        var geojson;
+            // ... our listeners
+        geojson = L.geoJson(...);
+-->
+       
+        <!-- Linking AVAs geoJSON files that have been converted to js variable -->       
+
+     <script type="application/javascript" src="data/AVA/json_Gene.js"></script>
+      <script type="application/javascript" src="data/AVA/json_Estrella.js"></script> 
+      <script type="application/javascript" src="data/AVA/json_YorkMountain.js"></script>
+      <script type="application/javascript" src="data/AVA/json_TempletonGap.js"></script>
+   
+   
+    <!-- Javascript Custom -->
+        <script type="application/javascript" src="js/mapFunctions.js"></script>  
+        <script type="application/javascript" src="js/sidebarFunctions.js"></script>
+    
+
+                         
+    </body>
+</html>
+    
+    
