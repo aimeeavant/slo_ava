@@ -106,7 +106,7 @@
         // second a callback function that executes once the script successfully loads the data.
         // added the jQuery getJSON() method to a variable [countyLayer] to be able to reference this action later 
         // added the Leaflet GeoJson layer to a variable [datalayer] to be able to use it as an argument in a new function and get the data out of the callback function
-        var countyLayer = jQuery.getJSON("data/sloCounty.geojson", function (data) {
+        var countyLayer = jQuery.getJSON("data/sloCountyBoundary.geojson", function (data) {
             var dataLayer = L.geoJson(data, {
                 style: function (feature) {
                     return {
