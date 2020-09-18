@@ -46,7 +46,8 @@
         <div id="footer" class="col-md-12">
             <h2>Notes</h2>
             <p>Data obtained from ttb.gov as shapefiles and PDF files.</p>
-            <p>Loaded into QGIS. Used Vectors>Data Managment Tools>Merge Vector Layers to create a single shape file. Exported as a GeoJson.</p>
+            <p>Loaded into QGIS. Used Vectors>Data Managment Tools>Merge Vector Layers to create a single shape file.
+                Exported as a GeoJson.</p>
 
         </div><!--  end footer div -->
     </div>
@@ -116,7 +117,7 @@
                 style: function (feature) {
                     return {
                         //color: '#5E94AD',
-                        color: 'orange',
+                        color: 'Crimson',
                         weight: .75,
                         fillOpacity: 0,
                         fillColor: '#1f78b4'
@@ -124,9 +125,9 @@
                 }
             }).addTo(map);
             // can call to new function here gets the data out of the callback function  
-            map.fitBounds(dataLayer.getBounds())   
+            map.fitBounds(dataLayer.getBounds())
         });// end of callback function
-       
+
 
         var avaLayer = jQuery.getJSON("data/combined_ava.geojson", function (data) {
             var dataLayer = L.geoJson(data, {
@@ -144,80 +145,74 @@
                     if (feature.properties.Name == 'Paso Robles' || feature.properties.Name == 'York Mountain' || feature.properties.Name == 'Arroyo Grande Valley' || feature.properties.Name == 'Edna Valley') {
                         return feature;
                     }
-
                 },
                 onEachFeature: function (feature, layer) {
                     console.log(feature)
-                    if (feature.properties.Name == 'Paso Robles') {
+                    if (feature.properties.Name == 'Edna Valley') {
                         layer.setStyle({
-                            //fillColor: 'red',
-                            //color: 'red',
-                            //opacity: .4,
-                            //fillOpacity: .4,
+                            fillColor: 'red',
+                            color: 'red',
+                            opacity: .4,
+                            fillOpacity: .4,
 
+                        });
+                    } else if (feature.properties.Name == 'Paso Robles') {
+                        layer.setStyle({
+                            fillColor: 'purple',
+                            color: 'purple',
+                            opacity: .4,
+                            fillOpacity: .4,
                         });
                     } else if (feature.properties.Name == 'York Mountain') {
                         layer.setStyle({
-                            //fillColor: 'purple',
-                            //color: 'purple',
-                            //opacity: .4,
-                            //fillOpacity: .4,
+                            fillColor: 'DarkOrange',
+                            color: 'DarkOrange',
+                            opacity: .4,
+                            fillOpacity: .4,
                         });
-                    }
+                    } else if (feature.properties.Name == 'Arroyo Grande Valley') {
+                        layer.setStyle({
+                            fillColor: 'purple',
+                            color: 'purple',
+                            opacity: .4,
+                            fillOpacity: .4,
+                        });
 
-                    layer.on('mouseover', function () {
-                        if (feature.properties.Name == 'Paso Robles') {
+                        layer.on('mouseover', function () {
+
                             layer.setStyle({
-                                fillColor: 'red',
-                                color: 'red',
+                                fillColor: 'white',
+                                color: 'white',
                                 opacity: .4,
                                 fillOpacity: .4,
 
                             });
-                        } else if (feature.properties.Name == 'York Mountain') {
-                            layer.setStyle({
-                                fillColor: 'purple',
-                                color: 'purple',
-                                opacity: .4,
-                                fillOpacity: .4,
-                            });
-                        } else if (feature.properties.Name == 'Arroyo Grande Valley') {
-                            layer.setStyle({
-                                fillColor: 'blue',
-                                color: 'blue',
-                                opacity: .4,
-                                fillOpacity: .4,
-                            });
-                        } else if (feature.properties.Name == 'Edna Valley') {
-                            layer.setStyle({
-                                fillColor: 'orange',
-                                color: 'orange',
-                                opacity: .4,
-                                fillOpacity: .4,
-                            });
+
+                        }); // end on mouseover
+
+                        layer.on('mouseout', function () {
+                            dataLayer.resetStyle(layer);
+                        });
+
+                        // moving tooltip location experiment
+                        var popUpText = feature.properties.Name
+                        var toolTipOptions = {
+                            // pane: 
+                            offset: L.point(-50, 0),
+                            direction: 'left', //right, left, top, bottom, center, auto
+                            permanent: false,
+                            sticky: true,
+                            interactive: false,
+                            opacity: .8
                         }
-                    }); // end on mouseover
-                    layer.on('mouseout', function () {
-                        dataLayer.resetStyle(layer);
-                    });
-                    
-                    var popUpText = feature.properties.Name
-                    var toolTipOptions = {
-                        // pane: 
-                        offset: L.point(-50, 0),
-                        direction:'left', //right, left, top, bottom, center, auto
-                        permanent: false,
-                        sticky: true,
-                        interactive: false,
-                        opacity: .8
-                    }
-                    
-                    layer.bindTooltip(popUpText, toolTipOptions); // opposite order of tooltip
 
-                    console.log(dataLayer)
-                } // end onEachFeature
+                        layer.bindTooltip(popUpText, toolTipOptions); // opposite order of tooltip
 
-            }).addTo(map);
+                        console.log(dataLayer)
+                    } // end onEachFeature
+
+                
+                ).addTo(map);
             // can call to new function here gets the data out of the callback function     
         });// end of callback function
 
