@@ -27,23 +27,28 @@
 <body>
     <div class="row">
         <div id="heading" class="col-md-12">
-            <h1>Map Title</h1>
+            <h1>Establishment of AVAs in SLO County</h1>
         </div>
     </div>
 
     <div class="row">
         <div id="sidebar" class="col-md-2">
-            <h3>Go to Location:</h3>
-            <button id='btnLocate' class='btn btn-primary btn-block'>Your Location</button>
-            <button id='btnSLO' class='btn btn-primary btn-block'>San Luis Obispo</button>
-            <button id='btnYork' class='btn btn-primary btn-block'>York Mountain AVA</button>
-            <button id='btnGeneseo' class='btn btn-primary btn-block'>Geneseo AVA</button>
+            <h3>AVAs</h3>
+            <button id='btnEV' class='btn btn-primary btn-block'>Edna Valley</button>
+            <button id='btnPR' class='btn btn-primary btn-block'>Paso Robles</button>
+            <button id='btnYM' class='btn btn-primary btn-block'>York Mountain</button>
+            <button id='btnAGV' class='btn btn-primary btn-block'>Arroyo Grande Valley</button>
             <div id="info"></div>
         </div>
         <div id="map" class="col-md-10"></div>
     </div>
     <div class="row">
-        <div id="footer" class="col-md-12">Footer</div>
+        <div id="footer" class="col-md-12">
+            <h2>Notes</h2>
+            <p>Data obtained from ttb.gov as shapefiles and PDF files.</p>
+            <p>Loaded into QGIS. Used Vectors>Data Managment Tools>Merge Vector Layers to create a single shape file. Exported as a GeoJson.</p>
+
+        </div><!--  end footer div -->
     </div>
 
 
@@ -61,8 +66,8 @@
     <script>
         // Map Options
         var options = {
-            center: [35.5528, -120.8266],
-            zoom: 8.4,
+            //center: [35.5528, -120.8266],
+            //zoom: 8.4,
             zoomSnap: .1,
             zoomControl: true,
             dragging: true,
@@ -110,60 +115,107 @@
             var dataLayer = L.geoJson(data, {
                 style: function (feature) {
                     return {
-                        color: '#5E94AD',
+                        //color: '#5E94AD',
+                        color: 'orange',
                         weight: .75,
                         fillOpacity: 0,
                         fillColor: '#1f78b4'
                     };
                 }
             }).addTo(map);
-            // can call to new function here gets the data out of the callback function     
+            // can call to new function here gets the data out of the callback function  
+            map.fitBounds(dataLayer.getBounds())   
         });// end of callback function
+       
 
         var avaLayer = jQuery.getJSON("data/combined_ava.geojson", function (data) {
-                var dataLayer = L.geoJson(data, {
-                    style: function (feature) {
-                        return {
-                            weight: 2,
-                            opacity: 1,
-                            color: 'white',
-                            dashArray: '3',
-                            fillOpacity: 0.2,
+            var dataLayer = L.geoJson(data, {
+                style: function (feature) {
+                    return {
+                        weight: .75,
+                        opacity: 1,
+                        color: 'white',
+                        fillColor: 'green',
+                        dashArray: '3',
+                        fillOpacity: 0.2,
+                    }
+                },
+                filter: function (feature, layer) {
+                    if (feature.properties.Name == 'Paso Robles' || feature.properties.Name == 'York Mountain' || feature.properties.Name == 'Arroyo Grande Valley' || feature.properties.Name == 'Edna Valley') {
+                        return feature;
+                    }
+
+                },
+                onEachFeature: function (feature, layer) {
+                    console.log(feature)
+                    if (feature.properties.Name == 'Paso Robles') {
+                        layer.setStyle({
+                            //fillColor: 'red',
+                            //color: 'red',
+                            //opacity: .4,
+                            //fillOpacity: .4,
+
+                        });
+                    } else if (feature.properties.Name == 'York Mountain') {
+                        layer.setStyle({
+                            //fillColor: 'purple',
+                            //color: 'purple',
+                            //opacity: .4,
+                            //fillOpacity: .4,
+                        });
+                    }
+
+                    layer.on('mouseover', function () {
+                        if (feature.properties.Name == 'Paso Robles') {
+                            layer.setStyle({
+                                fillColor: 'red',
+                                color: 'red',
+                                opacity: .4,
+                                fillOpacity: .4,
+
+                            });
+                        } else if (feature.properties.Name == 'York Mountain') {
+                            layer.setStyle({
+                                fillColor: 'purple',
+                                color: 'purple',
+                                opacity: .4,
+                                fillOpacity: .4,
+                            });
+                        } else if (feature.properties.Name == 'Arroyo Grande Valley') {
+                            layer.setStyle({
+                                fillColor: 'blue',
+                                color: 'blue',
+                                opacity: .4,
+                                fillOpacity: .4,
+                            });
+                        } else if (feature.properties.Name == 'Edna Valley') {
+                            layer.setStyle({
+                                fillColor: 'orange',
+                                color: 'orange',
+                                opacity: .4,
+                                fillOpacity: .4,
+                            });
                         }
-                    },
-                        onEachFeature: function (feature, layer) {
-                            console.log(feature)
-                            if (feature.properties.Name == 'Adelaida District') {
-                                layer.setStyle({
-                                    fillColor: 'purple',
-                                    color: 'red',
-                                    opacity: .4,
-                                    fillOpacity: .4,
+                    }); // end on mouseover
+                    layer.on('mouseout', function () {
+                        dataLayer.resetStyle(layer);
+                    });
+                    
+                    var popUpText = feature.properties.Name
+                    var toolTipOptions = {
+                        // pane: 
+                        offset: L.point(-50, 0),
+                        direction:'left', //right, left, top, bottom, center, auto
+                        permanent: false,
+                        sticky: true,
+                        interactive: false,
+                        opacity: .8
+                    }
+                    
+                    layer.bindTooltip(popUpText, toolTipOptions); // opposite order of tooltip
 
-                                });
-                            } else {
-                                layer.setStyle({
-                                    fillColor: 'LightSeaGreen',
-                                    color: 'LightSeaGreen',
-                                    opacity: .4,
-                                    fillOpacity: .4,
-                                });
-                            }
-
-                            layer.on('mouseover', function () {
-                                layer.setStyle({
-                                    fillColor: 'OrangeRed'
-                                });
-                            });
-                            layer.on('mouseout', function () {
-                                dataLayer.resetStyle(layer);
-                            });
-
-                            var popUpText = feature.properties.Name
-                            layer.bindTooltip(popUpText);
-
-                            console.log(dataLayer)
-                        } // end onEachFeature
+                    console.log(dataLayer)
+                } // end onEachFeature
 
             }).addTo(map);
             // can call to new function here gets the data out of the callback function     
