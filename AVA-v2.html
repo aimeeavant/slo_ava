@@ -25,16 +25,16 @@
 </head>
 
 <body>
-    <div class="row">
-        <div id="heading" class="col-md-12">
+    <section>
             <h1>Establishment of American Viticultural Areas (AVA) <br>in San Luis Obispo County, California</h1>
             <h6>An AVA is a grape-growing region with specific geographic or climatic features that distinguish it from the surrounding regions and affect how grapes are grown.</h6>
         </div>
-    </div>
-
+</section>
     <div class="row">
         <div id="sidebar" class="col-md-2">
-            <p class="intro">San Luis Obispo County has one of the longest winegrowing histories in North America, with vineyards planted by Spanish missionaries over 200 years ago. It has four distinct AVAs each with its own terroir.</p>
+            <p class="intro">San Luis Obispo County has one of the longest winegrowing histories in North America, with
+                vineyards planted by Spanish missionaries over 200 years ago. It has four distinct AVAs each with its
+                own terroir.</p>
             <button id='btnEV' class='btn btn-primary btn-block'>Edna Valley AVA <br>est. 1982</button>
             <button id='btnPR' class='btn btn-primary btn-block'>Paso Robles AVA <br>est. 1983</button>
             <button id='btnYM' class='btn btn-primary btn-block'>York Mountain AVA <br>est. 1983</button>
@@ -111,8 +111,6 @@
         // jQuery's getJSON() method passes two arguments:
         // first the URL of the file we're requesting 
         // second a callback function that executes once the script successfully loads the data.
-        // added the jQuery getJSON() method to a variable [countyLayer] to be able to reference this action later 
-        // added the Leaflet GeoJson layer to a variable [datalayer] to be able to use it as an argument in a new function and get the data out of the callback function
         var countyLayer = jQuery.getJSON("data/sloCountyBoundary.geojson", function (data) {
             var dataLayer = L.geoJson(data, {
                 style: function (feature) {
@@ -226,34 +224,34 @@
             }).addTo(map);  // end of data layer  
         });// end of callback function
 
-// Add York Mountain
-    var avaLayerYork = jQuery.getJSON("data/yorkMountain.geojson", function (data) {
-        var yorkLayer = L.geoJson(data, {
-            pointToLayer: function (feature, latlng) {
-                var wineIcon = L.icon({
-                    iconUrl: 'images/bottle-red-wine.png',
-                    // shadowUrl: 'leaf-shadow.png',
+        // Add York Mountain
+        var avaLayerYork = jQuery.getJSON("data/yorkMountain.geojson", function (data) {
+            var yorkLayer = L.geoJson(data, {
+                pointToLayer: function (feature, latlng) {
+                    var wineIcon = L.icon({
+                        iconUrl: 'images/bottle-red-wine.png',
+                        // shadowUrl: 'leaf-shadow.png',
 
-                    iconSize: [20, 20], // size of the icon
-                    //shadowSize: [50, 64], // size of the shadow
-                    // iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
-                    //shadowAnchor: [4, 62],  // the same for the shadow
-                    //popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
-                });
+                        iconSize: [20, 20], // size of the icon
+                        //shadowSize: [50, 64], // size of the shadow
+                        // iconAnchor: [22, 94], // point of the icon which will correspond to marker's location
+                        //shadowAnchor: [4, 62],  // the same for the shadow
+                        //popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+                    });
 
-                return L.marker(latlng, {icon: wineIcon})
-            },
-            onEachFeature: function (feature, layer) {
-                var popUpText = `<b>Name:</b> ${feature.properties['Winery or Grower']}<br>
+                    return L.marker(latlng, { icon: wineIcon })
+                },
+                onEachFeature: function (feature, layer) {
+                    var popUpText = `<b>Name:</b> ${feature.properties['Winery or Grower']}<br>
                 <b>Established:</b> ${feature.properties.Active}<br>
                     <b>Bond Number:</b> ${feature.properties["Bond Number"]} <br>
                         <b>History:</b> ${feature.properties["Historical Significance"]}`
-                layer.bindPopup(popUpText);
-            }
+                    layer.bindPopup(popUpText);
+                }
 
-        }).addTo(map); 
+            }).addTo(map);
 
-console.log(yorkLayer)
+            console.log(yorkLayer)
         });// end of callback function
     </script>
 

@@ -1,10 +1,16 @@
 body {
     margin: 15px;
 }
-
+p.intro {
+    font-size: 10px;
+    padding-top: 10px;
+}
 #heading {
-    height:10vh;
+    height:15vh;
     background-color: #f7f5ed;
+}
+.h1, h1 {
+    font-size: 2rem;
 }
 #map {
     height:80vh;
@@ -14,7 +20,7 @@ body {
     background-color: white;
 }
 #footer {
-    height:10vh;
+    height:5vh;
     background-color: #f7f5ed;
 }
 
@@ -30,4 +36,25 @@ body {
 
 .leaflet-dragging .leaflet-grab{
 	cursor: move;
+}
+
+/* Buttons */
+button#btnEV{
+    background-color: DarkCyan;
+    border-color: DarkCyan;
+}
+button#btnPR{
+    background-color: DarkKhaki;
+    border-color: DarkKhaki;
+} 
+button#btnYM{
+    background-color: DarkOrange;
+    border-color: DarkOrange;
+} 
+button#btnAGV{
+    background-color: OliveDrab;
+    border-color:OliveDrab;
+} 
+.btn {
+    font-size: .7rem;
 }
