@@ -12,6 +12,11 @@ p.intro {
 .h1, h1 {
     font-size: 2rem;
 }
+img.legend {
+    width: 32px;
+    padding: 5px;
+    float: left;
+}
 #map {
     height:80vh;
 }
