@@ -7,62 +7,30 @@ TAKES:
 RETURNS:  
 */
 
+/* <button id='btnEV' class='btn btn-primary btn-block'>Edna Valley AVA <br>est. 1982</button>
+<button id='btnPR' class='btn btn-primary btn-block'>Paso Robles AVA <br>est. 1983</button>
+<button id='btnYM' class='btn btn-primary btn-block'>York Mountain AVA <br>est. 1983</button>
+<button id='btnAGV' cla */
 
 
 // Sidebar functions --------------------------------------------
-$("#btnLocate").click(function(){
-    map.locate();
+
+function sideBar(dataLayer) {
+    console.log(`I made it out ${dataLayer}`) // show as object object
+    console.log(dataLayer)
+} 
+
+
+
+$("#btnPR").click(function(){
+   // fit ava polygon
+   map.setView([35.28105, -120.66181], 14);
+   //map.fitBounds(geoJson.getBounds);
+   // show html with info
+
+   // extract winery data and output
+   console.log("paso clicked")
 });
  
-        //Locate Event handler 
-        map.on('locationfound', function(e) {
-            console.log(e);
-            if (mrkCurrentLocation) {
-                mrkCurrentLocation.remove();
-            }
-            mrkCurrentLocation = L.circle(e.latlng, {radius:e.accuracy/2}).addTo(map);
-            map.setView(e.latlng, 14);
-        }); //end of event handler 
 
-        //Locate Event handler 
-        map.on('locationerror', function(e){
-            alert("No location");
-            console.log(e);
-        }); //end of event handler 
     
-$("#btnSLO").click(function(){
-    map.setView([35.28105, -120.66181], 14);
-})
-
-$("#btnYork").click(function(){
-    map.setView([35.552898586492105, -120.82660675048827],14);
-})
-
-$("#btnGeneseo").click(function(geoJson){
-    map.fitBounds(geoJson.getBounds);
-})
-
-
-// Zoom Output Information    
-map.on('zoomend', function(){
-   // $("#zoom-level").empty();
-    $("#zoom-level").html(map.getZoom());
-});
-    
-
-//map.on('zoomend', function(){
-//    $("#zoom-level").html(map.getZoom());
-//});
-    
-map.on('moveend', function(){
-    $("#map-center").html(LatLngToArrayString(map.getCenter()));
-});
-                
-map.on('mousemove', function(e){
-    $("#mouse-location").html(LatLngToArrayString(e.latlng));
-});
-    
-function LatLngToArrayString(ll) {
-    //console.log(ll);
-    return "["+ll.lat.toFixed(5)+", "+ll.lng.toFixed(5)+"]";
-}    

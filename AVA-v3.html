@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Central Coast AVAs</title>
+
+    <!-- Meta  -->
+    <meta name="description" content="An interactive guide to Central Coast AVAs">
+
+    <!-- Layout Framework  -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom Styles  -->
+    <link rel="stylesheet" href="css/layout.css">
+
+    <!-- Leaflet Styles  -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <!-- Fonts  -->
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+    <section>
+        <h1>Establishment of American Viticultural Areas (AVA) <br>in San Luis Obispo County, California</h1>
+            <h6>An AVA is a grape-growing region with specific geographic or climatic features that distinguish it from the surrounding regions and affect how grapes are grown.</h6>
+        </div>
+</section>
+    <div class="row">
+        <div id="sidebar" class="col-md-2">
+            <p class="intro">San Luis Obispo County has one of the longest winegrowing histories in North America, with
+                vineyards planted by Spanish missionaries over 200 years ago. It has four distinct AVAs each with its
+                own terroir.</p>
+            <button id='btnEV' class='btn btn-primary btn-block'>Edna Valley AVA <br>est. 1982</button>
+            <button id='btnPR' class='btn btn-primary btn-block'>Paso Robles AVA <br>est. 1983</button>
+            <button id='btnYM' class='btn btn-primary btn-block'>York Mountain AVA <br>est. 1983</button>
+            <button id='btnAGV' class='btn btn-primary btn-block'>Arroyo Grande Valley AVA <br>est. 1990</button>
+            <p class="intro"><img class="legend" src='images/bottle-red-wine.png' >  Existing Wineries at Time of AVA Establishment</h1></p>
+            <div id="info"></div>
+        </div>
+        <div id="map" class="col-md-10"></div>
+    </div>
+    <div class="row">
+        <div id="footer" class="col-md-12">
+            <h2>Notes</h2>
+            <p>Data obtained from ttb.gov as shapefiles and PDF files.</p>
+            <p>Loaded into QGIS. Used Vectors>Data Managment Tools>Merge Vector Layers to create a single shape file.
+                Exported as a GeoJson.</p>
+
+        </div><!--  end footer div -->
+    </div>
+
+
+    <!-- add javascript libraries -->
+    <!-- JQuery library -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- Leaflet JS  --- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- add sidebar functions -->
+    <script src="js/sidebarFunctions.js"></script>
+    <!-- Javascript Custom -->
+
+
+
+    <script>
+        // Map Options
+        var options = {
+            //center: [35.5528, -120.8266],
+            //zoom: 8.4,
+            zoomSnap: .1,
+            zoomControl: true,
+            dragging: true,
+            doubleClickZoom: true,
+            //minZoom: 7.4, // why does this work, docs say applies to tile layers
+            //maxZoom: 7.4,
+            attributionControl: true
+        }
+        // Map Constructor
+        var map = L.map('map', options);
+
+        // Mapbox custom tile layer
+        var xyzURL = 'https://api.mapbox.com/styles/v1/aimeeavant/cjurqkcb817u61fpl4hvm7g8q/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWltZWVhdmFudCIsImEiOiJjajd2ZWp3NjQwNGx4MndudjVqbGd1ZG1xIn0.5j60jT7XVIkSKpw7Y9aJXA';
+        var tiles = L.tileLayer(xyzURL, {
+            //no options
+        });
+        tiles.addTo(map);
+
+
+        // add scale bar
+        L.control.scale({ metric: false, position: 'topright', maxWidth: 200 }).addTo(map);
+        // add zoom level output
+        var ZoomViewer = L.Control.extend({
+            onAdd: function () {
+                var gauge = L.DomUtil.create('div');
+                // gauge.style.width = '200px';
+                // gauge.style.background = 'rgba(255,255,255,0.5)';
+                gauge.style.textAlign = 'left';
+                map.on('zoomstart zoom zoomend', function (ev) {
+                    gauge.innerHTML = 'Zoom Level: ' + map.getZoom();
+                })
+                return gauge;
+            }
+        });
+        (new ZoomViewer).addTo(map);
+
+        // -------- Add Data ------>
+
+        // jQuery's getJSON() method passes two arguments:
+        // first the URL of the file we're requesting 
+        // second a callback function that executes once the script successfully loads the data.
+        var countyLayer = jQuery.getJSON("data/sloCountyBoundary.geojson", function (data) {
+            var dataLayer = L.geoJson(data, {
+                style: function (feature) {
+                    return {
+                        //color: '#5E94AD',
+                        color: 'MidnightBlue',
+                        weight: 1,
+                        fillOpacity: 0,
+                        fillColor: '#1f78b4'
+                    };
+                }
+            }).addTo(map);
+            // can call to new function here gets the data out of the callback function  
+            map.fitBounds(dataLayer.getBounds())
+        });// end of callback function
+
+
+        var avaLayer = jQuery.getJSON("data/combined_ava.geojson", function (data) {
+            var dataLayer = L.geoJson(data, {
+
+                filter: function (feature, layer) {
+                    if (feature.properties.Name == 'Paso Robles' || feature.properties.Name == 'York Mountain' || feature.properties.Name == 'Arroyo Grande Valley' || feature.properties.Name == 'Edna Valley') {
+                        return feature;
+                    }
+                },
+                style: function (feature) {
+
+                    if (feature.properties.Name == 'Edna Valley') {
+                        return {
+                            fillColor: 'DarkCyan',
+                            color: 'MidnightBlue',
+                            opacity: 1,
+                            fillOpacity: .4,
+                            weight: .75,
+                            dashArray: '2'
+                        }
+                    } else if (feature.properties.Name == 'Paso Robles') {
+                        return {
+                            fillColor: 'DarkKhaki',
+                            color: 'MidnightBlue',
+                            opacity: 1,
+                            fillOpacity: .4,
+                            weight: .75,
+                            dashArray: '2'
+                        }
+                    } else if (feature.properties.Name == 'York Mountain') {
+                        return {
+                            fillColor: 'DarkOrange',
+                            color: 'MidnightBlue',
+                            opacity: 1,
+                            fillOpacity: .4,
+                            weight: .75,
+                            dashArray: '2'
+                        }
+                    } else if (feature.properties.Name == 'Arroyo Grande Valley') {
+                        return {
+                            fillColor: 'OliveDrab',
+                            color: 'MidnightBlue',
+                            opacity: 1,
+                            fillOpacity: .4,
+                            weight: 1,
+                            dashArray: '2'
+                        }
+                    }
+                },
+                onEachFeature: function (feature, layer) {
+                    console.log(feature)
+                    layer.on('mouseover', function () {
+                        layer.setStyle({
+                            fillColor: 'white',
+                            color: 'white',
+                            opacity: .4,
+                            fillOpacity: .4,
+                        });
+                    }); // end on mouseover
+
+                    layer.on('mouseout', function () {
+                        dataLayer.resetStyle(layer);
+                    });
+
+                    // moving tooltip location experiment
+                    var popUpText = feature.properties.Name
+                    var toolTipOptions = {
+                        // pane: 
+                        offset: L.point(-50, 0),
+                        direction: 'left', //right, left, top, bottom, center, auto
+                        permanent: false,
+                        sticky: true,
+                        interactive: false,
+                        opacity: .8
+                    }
+
+                    layer.bindTooltip(popUpText, toolTipOptions); // opposite order of tooltip
+
+                    console.log(dataLayer)
+                } // end onEachFeature
+
+            }).addTo(map);  // end of data layer 
+            // can call to new function here gets the data out of the callback function 
+            sideBar(dataLayer); 
+        });// end of callback function
+
+        // Add York Mountain
+        var avaLayerYork = jQuery.getJSON("data/yorkMountain.geojson", function (data) {
+            var yorkLayer = L.geoJson(data, {
+                pointToLayer: function (feature, latlng) {
+                    var wineIcon = L.icon({
+                        iconUrl: 'images/bottle-red-wine.png',
+                        iconSize: [20, 20], // size of the icon
+                    });
+
+                    return L.marker(latlng, { icon: wineIcon })
+                },
+                onEachFeature: function (feature, layer) {
+                    var popUpText = `<b>Name:</b> ${feature.properties['Winery or Grower']}<br>
+                <b>Established:</b> ${feature.properties.Active}<br>
+                    <b>Bond Number:</b> ${feature.properties["Bond Number"]} <br>
+                        <b>History:</b> ${feature.properties["Historical Significance"]}`
+                    layer.bindPopup(popUpText);
+
+                    layer.on('mouseover', function () {
+                        var hoverIcon = L.icon({
+                        iconUrl: 'images/bottle-rose.png',
+                        iconSize: [20, 20], // size of the icon
+                    });
+                        layer.setIcon(hoverIcon)
+                    }); // end on mouseover
+
+
+
+                    layer.on('mouseout', function () {
+                        var wineIcon = L.icon({
+                        iconUrl: 'images/bottle-red-wine.png',
+                        iconSize: [20, 20], // size of the icon
+                    });
+                        layer.setIcon(wineIcon)
+                    });
+
+
+
+
+                }
+
+            }).addTo(map);
+
+            console.log(yorkLayer)
+        });// end of callback function
+    </script>
+
+
+
+
+</body>
+
+</html>
