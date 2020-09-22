@@ -73,3 +73,18 @@ img.legend {
     padding-left: 3px;
     padding-right: 3px;
 }
+#infoPanel p.link  {
+    text-align: center;
+}
+.leaflet-container .edna  a {
+    color: DarkCyan;
+}
+.leaflet-container .paso  a {
+    color: darkkhaki;
+}
+.leaflet-container .york  a {
+    color: DarkOrange;
+}
+.leaflet-container .arroyo  a {
+    color: OliveDrab;
+}

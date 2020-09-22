@@ -59,7 +59,7 @@ $("#btnEV").click(function () {
         var div = L.DomUtil.create('div', 'edna');
 
         // insert text
-        div.innerHTML = `<div id='infoPanel'><h3>Edna Valley</h3><p>This region is a 10-mile-long valley running northwest to southwest that is cooled by coastal fog and ocean breezes. Varrying elevations and exposures increase the available growing season.</p></div>`;
+        div.innerHTML = `<div id='infoPanel'><h3>Edna Valley</h3><p>This region is a 10-mile-long valley running northwest to southwest that is cooled by coastal fog and ocean breezes. Varrying elevations and exposures increase the available growing season.</p><p class="link"><a href="/pdfs/Edna_Valley_petition.pdf">View the AVA Petition</a></p></div>`;
 
         // return the div element
         return div;
@@ -78,8 +78,7 @@ $("#btnPR").click(function () {
             div.innerHTML = `<div id='infoPanel'>
             <h3>Paso Robles</h3>
             <p>Seven miles from the Pacific Ocean, the appellation lies on the inland side of the Santa Lucia coastal mountains and roughly forms a rectangle 35 miles from east to west, and 25 miles from north to south. It extends from the Monterey County border to the north, to the Cuesta Grade below Santa Margarita to the south, and from the Santa Lucia Mountains to the west, to the Cholame Hills to the east.</p>
-            <p>Source: Paso Robles Wine Country Alliance</p>
-            </div>`;
+            <p class="link"><a href="/pdfs/Paso_Robles_petition.pdf">View the AVA Petition</a></p></div>`;
     
             // return the div element
             return div;
@@ -95,7 +94,7 @@ $("#btnYM").click(function () {
         infoPanel.onAdd = function () {
             var div = L.DomUtil.create('div', 'york');   
             // insert text
-            div.innerHTML = `<div id='infoPanel'><h3>York Mountain</h3><p>One of California’s smallest AVAs, York Mountain lies on the eastern slopes of the Santa Lucia Mountains. Located west of the large Paso Robles AVA, the region is a significantly cooler and wetter. Vineyards are situated at an average of 1,500 feet, on low-vigor soil, and steep slopes.</p></div>`;
+            div.innerHTML = `<div id='infoPanel'><h3>York Mountain</h3><p>One of California’s smallest AVAs, York Mountain lies on the eastern slopes of the Santa Lucia Mountains. Located west of the large Paso Robles AVA, the region is a significantly cooler and wetter. Vineyards are situated at an average of 1,500 feet, on low-vigor soil, and steep slopes.</p><p class="link"><a href="/pdfs/York_Mountain_petition.pdf">View the AVA Petition</a></p></div></div>`;
     
             // return the div element
             return div;
@@ -111,8 +110,7 @@ $("#btnAGV").click(function () {
         infoPanel.onAdd = function () {
             var div = L.DomUtil.create('div', 'arroyo');
             // insert text
-            div.innerHTML = `<div id='infoPanel'><h3>Arroyo Grande Valley</h3><p>This region is a 16-mile-long winding valley in an east-northeast orientation cooled by coastal fog and Pacific breezes creating a rich diversity of microclimates.</p>
-            <p>Source Appellation America</p></div>`;
+            div.innerHTML = `<div id='infoPanel'><h3>Arroyo Grande Valley</h3><p>This region is a 16-mile-long winding valley in an east-northeast orientation cooled by coastal fog and Pacific breezes creating a rich diversity of microclimates.</p><p class="link"><a href="/pdfs/Arroyo_Grande_Valley_petition.pdf">View the AVA Petition</a></p></div></div>`;
     
             // return the div element
             return div;
