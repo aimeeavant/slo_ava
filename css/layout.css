@@ -1,66 +1,72 @@
 body {
     margin: 15px;
 }
-p.intro {
-    font-size: 10px;
-    padding-top: 10px;
-}
-#heading {
-    height:15vh;
-    background-color: #f7f5ed;
-}
 
-.h1, h1 {
-    font-size: 2rem;
+/* Clear floats after columns */
+.row::after {
+content: "";
+display: block;
+clear: both;
 }
-img.legend {
-    width: 32px;
-    padding: 5px;
+#sidebar {
+    background-color: white;
     float: left;
+    width: 15%;
+    margin-right: 15px;
 }
 #map {
     height:80vh;
-}
-#side-bar {
-    height:80vh;
-    background-color: white;
-}
-#footer {
-    height:5vh;
-    background-color: #f7f5ed;
+    border: 2px solid #d3d3d3;
+
 }
 
-/* Cursors */
-.leaflet-clickable {
-  cursor: crosshair !important;
+#about-map {
+    margin: 15px 0;
+    padding: 0 15px;
+    background-color: #F4F0E5;
 }
 
-/* only on that works */
-.leaflet-container {
-  cursor: crosshair !important;
+
+/* Use float property to make two-column layout */
+.first-column {
+    float: left;
+    width: 49%;
+    padding-right: 2%;  
+    }
+  .second-column {
+    float: left;
+    width: 49%;
+    }
+
+  /* Display col 100% wide until display is wider than 900px */
+  @media screen and (max-width: 900px) {
+  #sidebar,
+  .first-column,
+  .second-column {
+    width: 100%;
+    }
+  }
+
+
+.legend {
+    background-color: rgb(255, 255, 255);
+    width: 14em;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+.legend img {
+    box-shadow: 0 0 15px rgba(0,0,0,0);
 }
 
-.leaflet-dragging .leaflet-grab{
-	cursor: move;
+#infoPanel {
+    background-color: rgb(255, 255, 255);
+    width: 14em;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 1px;
+    height: 60vh;
+    overflow: scroll;
 }
-
-/* Buttons */
-button#btnEV{
-    background-color: DarkCyan;
-    border-color: DarkCyan;
-}
-button#btnPR{
-    background-color: DarkKhaki;
-    border-color: DarkKhaki;
-} 
-button#btnYM{
-    background-color: DarkOrange;
-    border-color: DarkOrange;
-} 
-button#btnAGV{
-    background-color: OliveDrab;
-    border-color:OliveDrab;
-} 
-.btn {
-    font-size: .7rem;
+#infoPanel p {
+    font-size: 10px;
+    padding-left: 3px;
 }
