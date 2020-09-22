@@ -1,9 +1,6 @@
 body {
     font-family: lato;
 }
-
-
-
 h1, h6 {
     line-height: 1.2;
     font-weight: 500;
@@ -105,6 +102,11 @@ img.popup {
     border-radius: .25rem;
     margin: 5px 0;
 }
+button#btnEV:hover, button#btnPR:hover,button#btnYM:hover, button#btnAGV:hover  {
+    background-color: rgba(81,10,31,1);
+    border-color: rgba(81,10,31,1);
+    color:white
+}
 button#btnEV{
     background-color: DarkCyan;
     border-color: DarkCyan;
@@ -112,9 +114,9 @@ button#btnEV{
 div.edna h3 {
     color:  DarkCyan;
     font-size: 20px;
-margin: 0;
-padding: 0;
-text-align: center;
+    margin: 0;
+    padding: 0;
+    text-align: center;
     }
 button#btnPR{
     background-color: DarkKhaki;
@@ -159,8 +161,8 @@ img.legend {
 
 /* - - - - - - Scroll bar  - - - - - - - - -*/
 html {
-    --scrollbarBG: #CFD8DC;
-    --thumbBG: #90A4AE;
+    --scrollbarBG: rgba(241,238,223,1);
+    --thumbBG: rgba(81,10,31,1);
   }
   body::-webkit-scrollbar {
     width: 11px;
