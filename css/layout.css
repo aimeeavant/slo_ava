@@ -57,7 +57,9 @@ clear: both;
 .legend img {
     box-shadow: 0 0 15px rgba(0,0,0,0);
 }
-
+img.legend {
+    box-shadow: 0 0 15px rgba(0,0,0,0);
+}
 #infoPanel {
     background-color: rgb(255, 255, 255);
     width: 14em;
@@ -69,4 +71,5 @@ clear: both;
 #infoPanel p {
     font-size: 10px;
     padding-left: 3px;
+    padding-right: 3px;
 }

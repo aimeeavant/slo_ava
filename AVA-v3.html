@@ -65,10 +65,7 @@
         <div class="first-column">
             <!-- Start first column -->
             <h2>About this Map</h2>
-            <p>This map demonstrates storing and accessing map information using variables and arrays with the Leaflet
-                javascript library. Three cities are indicated with markers. Population information and an image of each
-                city's downtown are provided through a popup window on click. Popups are constructed using arrays.</p>
-            <p>Population data, images, and Lat/Long coordinates from Wikipedia.</p>
+            <p>This map uses the Leaflet javascript library. Initial data was obtained from ttb.gov as shapefiles for AVA boundaries and PDF files for winery names and narative information. The individual shape files were processed in QGIS, merged and exported as a GeoJson. The coordinates for winery data, calculated using acme.mapper, and historical research were entered into a csv spreadsheet and then processed in QGIS and exported as a GeoJson.
 
         </div><!-- End first column -->
 
@@ -124,12 +121,13 @@
         zoomControl: true,
         dragging: true,
         doubleClickZoom: true,
-        //minZoom: 7.4, // why does this work, docs say applies to tile layers
+        //minZoom: 7.4,
         //maxZoom: 7.4,
         attributionControl: true
     }
     // Map Constructor
     var map = L.map('map', options);
+   
 
     // Mapbox custom tile layer
     var xyzURL = 'https://api.mapbox.com/styles/v1/aimeeavant/cjurqkcb817u61fpl4hvm7g8q/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiYWltZWVhdmFudCIsImEiOiJjajd2ZWp3NjQwNGx4MndudjVqbGd1ZG1xIn0.5j60jT7XVIkSKpw7Y9aJXA';
@@ -215,6 +213,7 @@
             },
             onEachFeature: function (feature, layer) {
                 console.log(feature)
+/*                 
                 layer.on('mouseover', function () {
                     layer.setStyle({
                         fillColor: 'white',
@@ -239,8 +238,9 @@
                     interactive: false,
                     opacity: .8
                 }
-
-                layer.bindTooltip(popUpText, toolTipOptions); // opposite order of tooltip
+ */
+                // removed because distracting
+               // layer.bindTooltip(popUpText, toolTipOptions); // opposite order of tooltip
 
             } // end onEachFeature
 
@@ -252,7 +252,7 @@
     });// end of callback function
 
     // Add Data Points
-    var avaLayerYork = jQuery.getJSON("data/yorkMountain.geojson", function (data) {
+    var avaLayerYork = jQuery.getJSON("data/establishedAvas.geojson", function (data) {
         var yorkLayer = L.geoJson(data, {
             pointToLayer: function (feature, latlng) {
                 var wineIcon = L.icon({
@@ -269,6 +269,18 @@
                         <b>History:</b> ${feature.properties["Historical Significance"]}`
                 layer.bindPopup(popUpText);
 
+/*                 var toolTipText = feature.properties['Winery or Grower']
+                var toolTipOptions = {
+                    // pane: 
+                    offset: L.point(-10, 0),
+                    direction: 'left', //right, left, top, bottom, center, auto
+                    permanent: false,
+                    sticky: true,
+                    interactive: false,
+                    opacity: .8
+                }
+                layer.bindTooltip(toolTipText, toolTipOptions);
+ */
                 layer.on('mouseover', function () {
                     var hoverIcon = L.icon({
                         iconUrl: 'images/bottle-rose.png',
