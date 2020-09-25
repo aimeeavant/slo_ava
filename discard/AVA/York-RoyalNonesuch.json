@@ -5,15 +5,15 @@
       "type": "Feature",
       "properties": {
         "Winery or Grower": "The Royal Nonesuch Farm",
-        "Historical Significance": unknown,
+        "Historical Significance": null,
         "Established": "2013",
-        "Closed": unknown,
-        "Owner": unknown,
-        "Winemaker": unknown,
+        "Closed": null,
+        "Owner": null,
+        "Winemaker": null,
         "Grape Varieties": "Grenache, Graciano, Syrah, Clairette",
         "Signature Wine Varietals & Wines": "Red Blend",
         "Website": "https://www.royalnonesuchfarm.com/",
-        "More Information": unknown
+        "More Information": null
       },
       "geometry": {
         "type": "Point",

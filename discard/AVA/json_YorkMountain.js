@@ -7,7 +7,7 @@ var YorkMountain = {
         "name": "York Mountain",
         "established": "1983/09/23",
         "within": "Central Coast",
-        "contains": unknown,
+        "contains": null,
         "petitioner": "York Mountain Winery",
         "approved_maps": "\"York Mountain Quadrangle,\" 7.5 minute series (topographic), 1979",
         "boundary_description": "(1) From the beginning point at the northwest corner of the York Mountain Quadrangle map where the Dover Canyon Jeep Trail and Dover Canyon Road intersect, proceed east along Dover Canyon Road 1.5 miles to the western boundary line of Rancho Paso de Robles; (2) Follow the western boundary line of Rancho Paso de Robles southwest 6.0 miles to where the boundary joins Santa Rita Creek; (3) Turn right at Santa Rita Creek and follow the creek 5 miles to where the waters of Dover Canyon and Santa Rita Creek meet; and (4) Then proceed north along Dover Canyon Creek to its intersection with Dover Canyon Road, then following Dover Canyon Road (which becomes Dover Canyon Jeep Trail) back to the point of beginning.",
